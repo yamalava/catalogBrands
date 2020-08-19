@@ -4,6 +4,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+### `git checkout dev`
+
+Switch to dev branch
+
 ### `npm install`
 
 Installs the necessary packages to work
