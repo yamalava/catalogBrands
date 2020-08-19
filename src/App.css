@@ -1,0 +1,7 @@
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: rgba(162, 162, 163, 0.5);
+  transform: translate(-50%, -50%);
+}
