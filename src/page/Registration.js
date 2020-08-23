@@ -13,7 +13,7 @@ function Registration() {
             }
         })
     }
-    return <AuthForm title="Registration" btnTitle="Registration" getDataForm={registrationUser} />
+    return <AuthForm title="Регистрация" btnTitle="Зарегестрироваться" getDataForm={registrationUser} />
 }
 
 export default withRouter(Registration);

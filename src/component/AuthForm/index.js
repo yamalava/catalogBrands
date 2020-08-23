@@ -38,7 +38,7 @@ export function AuthForm({ title, btnTitle, getDataForm }) {
                 </div>
                 <form className={styles.form} onSubmit={getFormProperty}>
                     <TextField
-                        label="Login"
+                        label="Логин"
                         autoFocus
                         onChange={event => setFormData({ ...formData, login: event.target.value })}
                         value={formData.login}
@@ -46,7 +46,7 @@ export function AuthForm({ title, btnTitle, getDataForm }) {
                     />
                     <FormControl fullWidth className={styles.margin} variant="outlined">
                         <FormControl variant="outlined">
-                            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                            <InputLabel htmlFor="outlined-adornment-password">Пароль</InputLabel>
                             <OutlinedInput
                                 id="outlined-adornment-password"
                                 type={showPassword ? 'text' : 'password'}

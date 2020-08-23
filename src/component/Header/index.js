@@ -14,11 +14,11 @@ function Header(props) {
         <header className={styles.header}>
             <div className={styles.header__menu}>
                 {sessionStorage.getItem('accessToken') ? (
-                    <Button variant="contained" onClick={removeToken}>Logout</Button>
+                    <Button variant="contained" onClick={removeToken}>Выйти</Button>
                 ) : (
                         <>
-                            <Button variant="contained" onClick={() => props.history.push('/auth')}>LogIn</Button>
-                            <Button variant="contained" onClick={() => props.history.push('/registration')}>Registration</Button>
+                            <Button variant="contained" onClick={() => props.history.push('/auth')}>Войти</Button>
+                            <Button variant="contained" onClick={() => props.history.push('/registration')}>Регистрация</Button>
                         </>
                     )
                 }

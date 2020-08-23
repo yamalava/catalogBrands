@@ -4,10 +4,11 @@ import TextField from '@material-ui/core/TextField'
 function CustomTextField(date) {
     return (
         <TextField
-                {...date}
-                margin="dense"
-                fullWidth
-            />
+            {...date}
+            helperText={date.error ? date.helperText : null}
+            margin="dense"
+            fullWidth
+        />
     )
 }
 

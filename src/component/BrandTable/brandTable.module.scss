@@ -1,0 +1,10 @@
+.table {
+    // .table__item
+    &__item {
+      &:hover {
+        background-color: #eee;
+        cursor: pointer;
+      }
+    }
+  }
+  

@@ -5,3 +5,9 @@
   color: rgba(162, 162, 163, 0.5);
   transform: translate(-50%, -50%);
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

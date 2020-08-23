@@ -5,31 +5,46 @@
   justify-content: space-between;
   height: 100%;
   box-sizing: border-box;
-  padding: 20px;
+  padding: 0 20px;
 
   // .date__lists
   &__lists {
     margin: 0;
     padding: 0;
+    width: 100%;
     list-style: none;
     .active {
-      border-radius: 15px;
       border-bottom: 1px solid yellowgreen;
+      box-shadow: 1px 1px 10px 1px #eee;
     }
     li {
       width: 100%;
       cursor: pointer;
       padding: 10px;
+      box-sizing: border-box;
       text-align: center;
       margin-bottom: 15px;
+      border-radius: 10px;
       &:hover {
-        border-radius: 15px;
-        border-bottom: 1px solid yellowgreen;
+        border: 1px solid yellowgreen;
       }
     }
   }
 
   button {
     border-bottom: 2px solid yellowgreen;
+  }
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  &__flex {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
   }
 }

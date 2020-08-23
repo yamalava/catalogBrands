@@ -25,7 +25,7 @@ function Auth(props) {
         loading ? (
             <CircularProgress className="loader" color="inherit" />
         ) : (
-                <AuthForm title="Authorization" btnTitle="LogIn" getDataForm={authUser} />
+                <AuthForm title="Авторизация" btnTitle="Войти" getDataForm={authUser} />
             )
     )
 }
