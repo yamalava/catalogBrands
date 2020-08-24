@@ -30,6 +30,7 @@ export const AUTH_USER = gql`
   mutation($login: String, $password: String) {
     authUser(login: $login, password: $password) {
       id
+      login
       token
     }
   }

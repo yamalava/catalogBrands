@@ -22,7 +22,7 @@ function BrandsCatalog({ refetch, brandsCatalog }) {
   });
 
   const updateAllBrands = (brand) => {
-    refetch({ year: brand.year });
+    refetch({ year: brand });
   };
 
   const openEditModal = (item) => {

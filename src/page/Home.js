@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Header from "../component/Header";
 import BrandsCatalog from "../component/BrandsCatalog";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import { GET_ALL_BRANDS } from "../queries";
 import { useQuery } from "@apollo/client";
+import Loader from "../component/Loader";
 
 function Home() {
   const [brandsCatalog, setBrandsCatalog] = useState([]);
@@ -18,7 +18,7 @@ function Home() {
     }
   }, [data]);
   return loading ? (
-    <CircularProgress className="loader" color="inherit" />
+    <Loader />
   ) : (
     <>
       <Header />

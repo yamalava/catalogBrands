@@ -1,9 +1,36 @@
 .loader {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  color: rgba(162, 162, 163, 0.5);
-  transform: translate(-50%, -50%);
+  top: 25%;
+  left: 40%;
+  transform: translate(-25%, -40%);
+  width: 200px;
+  height: 200px;
+}
+.loader div {
+  position: absolute;
+  border: 20px solid yellowgreen;
+  opacity: 1;
+  border-radius: 50%;
+  animation: loader 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.loader div:nth-child(2) {
+  animation-delay: -0.5s;
+}
+@keyframes loader {
+  0% {
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 300px;
+    opacity: 0;
+  }
 }
 
 input::-webkit-outer-spin-button,

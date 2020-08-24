@@ -8,7 +8,7 @@ import AddIcon from "@material-ui/icons/Add";
 
 function BrandsDatePanel(props) {
   const [brandsDate, setBrandsDate] = React.useState([]);
-  const [activeYear, setActiveYear] = React.useState("");
+  const [activeYear, setActiveYear] = React.useState(undefined);
   const { data } = useQuery(GET_ALL_BRANDS);
   const [createBrandQuery] = useMutation(CREATE_BRAND, {
     refetchQueries: () => [{ query: GET_ALL_BRANDS }],
@@ -53,7 +53,8 @@ function BrandsDatePanel(props) {
 
   const getBrandsYear = (brand) => {
     props.updateAllBrands(brand);
-    setActiveYear(brand.year);
+    console.log(brand)
+    setActiveYear(brand);
   };
 
   const handleClickOpen = () => {
@@ -75,11 +76,17 @@ function BrandsDatePanel(props) {
   return (
     <div className={styles.date}>
       <ul className={styles.date__lists}>
+        <li
+          onClick={getBrandsYear.bind(this, undefined)}
+          className={activeYear === undefined || activeYear === "" ? styles.active : null}
+        >
+          Все
+        </li>
         {brandsDate.map((brand) => (
           <li
             key={brand.id}
             className={activeYear === brand.year ? styles.active : null}
-            onClick={getBrandsYear.bind(this, brand)}
+            onClick={getBrandsYear.bind(this, brand.year)}
           >
             {brand.year}
           </li>
