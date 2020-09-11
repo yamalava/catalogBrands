@@ -1,0 +1,41 @@
+.brands {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1440px;
+  margin: 40px auto 0;
+  height: 75vh;
+
+  // .brands__date
+  &__date {
+    flex: 0.1;
+    border-right: 1px solid rgba(233, 233, 233, 0.8);
+    max-height: 97%;
+  }
+
+  // .brands__catalog
+  &__catalog {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    max-height: 97%;
+    scrollbar-arrow-color: transparent;
+    overflow-y: auto;
+
+    // .brands__catalog_info
+    &_info {
+      text-align: center;
+      font-size: 30px;
+      color: #aaa;
+      margin: auto;
+      font-weight: 300;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+    }
+  }
+}
+
+.title {
+  text-align: center;
+  font-weight: 400;
+  color: #aaa;
+}

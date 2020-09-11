@@ -1,0 +1,15 @@
+.filterStamps {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    &__item {
+        margin: 0 40px;
+        width: 20%;
+        &_placeholder {
+            margin-right: 20px;
+        }
+    }
+}

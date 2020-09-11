@@ -1,53 +1,54 @@
-import React, { useState } from "react";
-import { AuthForm } from "../component/AuthForm";
-import { useMutation } from "@apollo/client";
-import { AUTH_USER } from "../queries";
-import { withRouter } from "react-router-dom";
-import Loader from "../component/Loader";
-import Alert from "../component/AlertAction";
+import React, { useState } from 'react';
+import AuthForm from '../component/AuthForm/AuthForm';
+import { withRouter } from 'react-router-dom';
+import Loader from '../component/Loader/Loader';
+import AlertAction from '../component/AlertAction/AlertAction';
+import initialAlert from '../initialValue/alert';
+import AuthUserQuery from '../apollo/mutation/authUser';
 
 function Auth(props) {
-  const [authUserRequest, { loading }] = useMutation(AUTH_USER);
-  const [alert, setAlert] = useState({
-    severity: "",
-    visible: false,
-    message: "",
-  });
+  const auth = AuthUserQuery();
+  const [alert, setAlert] = useState(initialAlert);
   const authUser = (dataForm) => {
-    authUserRequest({
-      variables: {
-        ...dataForm,
-      },
-    })
+    auth
+      .authUserQuery({
+        variables: {
+          ...dataForm,
+        },
+      })
       .then((res) => {
-        setAlert({
-          ...alert,
-          visible: true,
-          severity: "success",
-          message: `Добро пожаловать ${res.data.authUser.login}`,
-        });
-        setTimeout(() => {
-          sessionStorage.setItem("accessToken", res.data.authUser.token);
-          props.history.push("/");
-        }, 1500);
+        sessionStorage.setItem('accessToken', res.data.authUser.token);
+        props.history.push('/');
       })
       .catch((err) => {
         setAlert({
           ...alert,
           visible: true,
-          severity: "error",
+          severity: 'error',
           message: err.message,
         });
       });
   };
 
-  return loading ? (
+  const changeAlertVisible = () => {
+    setAlert({
+      ...alert,
+      visible: false,
+    });
+  };
+
+  return auth.loading ? (
     <Loader />
   ) : (
     <>
-      <AuthForm title="Авторизация" btnTitle="Войти" getDataForm={authUser} />
+      <AuthForm title='Авторизация' btnTitle='Войти' formAction={authUser} />
       {alert.visible && (
-        <Alert severity={alert.severity} message={alert.message} />
+        <AlertAction
+          severity={alert.severity}
+          changeAlertVisible={changeAlertVisible}
+          visible={alert.visible}
+          message={alert.message}
+        />
       )}
     </>
   );
