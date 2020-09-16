@@ -3,11 +3,11 @@ import { withRouter } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import styles from './header.module.scss'
 
-function Header(props) {
+function Header({history}) {
 
     const removeToken = () => {
         sessionStorage.removeItem('accessToken')
-        props.history.push('/auth')
+        history.push('/auth')
     }
 
     return (
@@ -17,8 +17,8 @@ function Header(props) {
                     <Button variant="contained" onClick={removeToken}>Выйти</Button>
                 ) : (
                         <>
-                            <Button variant="contained" onClick={() => props.history.push('/auth')}>Войти</Button>
-                            <Button variant="contained" onClick={() => props.history.push('/registration')}>Регистрация</Button>
+                            <Button variant="contained" onClick={() => history.push('/auth')}>Войти</Button>
+                            <Button variant="contained" onClick={() => history.push('/registration')}>Регистрация</Button>
                         </>
                     )
                 }

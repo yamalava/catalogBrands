@@ -26,21 +26,14 @@ function GetAllStampsQuery() {
   let { refetch, data, loading } = useQuery(getAllStamps);
 
   useEffect(() => {
-    if (data) {
-      if (data.allStamps.length !== 0) {
-        let sort = data.allStamps
-          .slice()
-          .sort((a, b) => a.dateHandling - b.dateHandling);
-        setStampCatalog(sort);
-      } else {
-        setStampCatalog([]);
-      }
+    if (data?.allStamps.length > 0) {
+      let sort = data?.allStamps
+        .slice()
+        .sort((a, b) => a.dateHandling - b.dateHandling);
+      setStampCatalog(sort);
     } else {
       setStampCatalog([]);
     }
-    return () => {
-      setStampCatalog([]);
-    };
   }, [data]);
 
   return { stampCatalog, loading, refetch };

@@ -12,6 +12,7 @@ import FilterTableStamps from './FilterTableStamps';
 import tableNames from '../../initialValue/tableNames';
 
 function StampTable({ stampCatalog, history }) {
+  const viewCurrentStamp = (id) => history.push(`/stamp/${id}`);
   return (
     <TableContainer component={Paper}>
       <Table className={styles.table} aria-label='simple table'>
@@ -31,7 +32,7 @@ function StampTable({ stampCatalog, history }) {
               className={`${styles.table__item} ${
                 index % 2 !== 0 ? styles.table__item_effect : ''
               }`}
-              onClick={() => history.push(`/stamp/${stamp.id}`)}
+              onClick={viewCurrentStamp.bind(this, stamp.id)}
             >
               {FilterTableStamps(stamp)}
             </TableRow>

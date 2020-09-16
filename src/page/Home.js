@@ -5,7 +5,7 @@ import Loader from '../component/Loader/Loader';
 import GetAllStampsQuery from '../apollo/queries/getAllStamps';
 
 function Home() {
-  let stamps = GetAllStampsQuery();
+  const stamps = GetAllStampsQuery();
   return stamps.loading ? (
     <Loader />
   ) : (
