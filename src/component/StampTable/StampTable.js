@@ -15,7 +15,7 @@ function StampTable({ stampCatalog, history }) {
   const viewCurrentStamp = (id) => history.push(`/stamp/${id}`);
   return (
     <TableContainer component={Paper}>
-      <Table className={styles.table} aria-label='simple table'>
+      <Table className={styles.table}>
         <TableHead>
           <TableRow>
             {tableNames.map((cell, index) => (
@@ -32,7 +32,7 @@ function StampTable({ stampCatalog, history }) {
               className={`${styles.table__item} ${
                 index % 2 !== 0 ? styles.table__item_effect : ''
               }`}
-              onClick={viewCurrentStamp.bind(this, stamp.id)}
+              onClick={() => viewCurrentStamp(stamp.id)}
             >
               {FilterTableStamps(stamp)}
             </TableRow>

@@ -34,6 +34,7 @@ export default function AlertAction({
           severity={severity}
           action={
             <IconButton
+              className='iconButton'
               aria-label='close'
               color='inherit'
               size='small'
