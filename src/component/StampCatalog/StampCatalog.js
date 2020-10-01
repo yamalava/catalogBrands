@@ -10,6 +10,8 @@ import AlertAction from '../AlertAction/AlertAction';
 import initialFormData from '../../initialValue/formData';
 import SearchStamps from '../SearchStamps/SearchStamps';
 
+const CLOSE_DIALOG_AFTER_DELAY = 5000;
+
 function StampCatalog({ refetch, stampCatalog }) {
   const [dialogForm, setDialogForm] = useState({
     open: false,
@@ -42,7 +44,7 @@ function StampCatalog({ refetch, stampCatalog }) {
           ...alert,
           initialAlert,
         });
-      }, 5000);
+      }, CLOSE_DIALOG_AFTER_DELAY);
     } else {
       setDialogForm({ ...dialogForm, open: true, formData: initialFormData });
     }
@@ -68,7 +70,7 @@ function StampCatalog({ refetch, stampCatalog }) {
           ...alert,
           initialAlert,
         });
-      }, 5000);
+      }, CLOSE_DIALOG_AFTER_DELAY);
       setAllStamps(stampCatalog);
     } else {
       setAllStamps(currentSearchStamps);

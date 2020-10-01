@@ -27,7 +27,10 @@ function AuthForm({ title, btnTitle, formAction, history }) {
         <Form.Item>
           <div className={styles.auth__form_header}>
             <p>{title}</p>
-            <CloseCircleOutlined onClick={() => history.push('/')} />
+            <CloseCircleOutlined
+              className='close-icon'
+              onClick={() => history.push('/')}
+            />
           </div>
         </Form.Item>
         <Form.Item

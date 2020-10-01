@@ -1,9 +1,13 @@
 import React from 'react';
 import StampTable from './StampTable';
-import { BrowserRouter } from 'react-router-dom';
+const propsAction = {
+  stampCatalog: [{ id: 5 }],
+  history: {
+    push: jest.fn(),
+  },
+};
 
-const setUp = (props) =>
-  global.shallow(<StampTable.WrappedComponent {...props} />);
+const setUp = (props) => shallow(<StampTable.WrappedComponent {...props} />);
 describe('StampTable', () => {
   let component;
   beforeEach(() => {
@@ -17,13 +21,8 @@ describe('StampTable', () => {
     expect(component.find('.table__item')).toHaveLength(2);
   });
   it('click on table__item', () => {
-    const func = jest.fn();
-    component = setUp({
-      stampCatalog: [{ id: 5 }, { id: 6 }],
-      history: new BrowserRouter().history,
-    });
+    component = setUp(propsAction);
     component.find('.table__item').first().simulate('click');
-    func();
-    expect(func.mock.calls.length).toBe(1);
+    expect(propsAction.history.push).toBeCalled();
   });
 });

@@ -46,7 +46,7 @@ function StampDatePanel({ updateAllStamps, openDialogForm }) {
     <div className={styles.date}>
       <ul className={styles.date__lists}>
         <li
-          onClick={getBrandsYear.bind(this, '')}
+          onClick={() => getBrandsYear()}
           className={!activeYear ? styles.active : null}
         >
           Все
@@ -55,7 +55,7 @@ function StampDatePanel({ updateAllStamps, openDialogForm }) {
           <li
             key={brand.id}
             className={activeYear === brand.year ? styles.active : null}
-            onClick={getBrandsYear.bind(this, brand.year)}
+            onClick={() => getBrandsYear(brand.year)}
           >
             {brand.year}
           </li>

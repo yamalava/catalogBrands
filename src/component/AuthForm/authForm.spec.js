@@ -1,60 +1,47 @@
 import React from 'react';
 import AuthForm from './AuthForm';
-import { BrowserRouter } from 'react-router-dom';
 
-const props = {
-  title: 'Авторизация1',
-  btnTitle: 'Войти1',
+const historyPropsHome = {
+  history: {
+    location: {
+      pathname: '/',
+    },
+    push: jest.fn(),
+  },
+};
+
+const historyPropsRegistration = {
   history: {
     location: {
       pathname: '/auth',
     },
+    push: jest.fn(),
   },
 };
+const setUp = (props) => shallow(<AuthForm.WrappedComponent {...props} />);
+
 describe('AuthForm', () => {
   let component;
   beforeEach(() => {
-    component = global.shallow(
-      <AuthForm.WrappedComponent history={{ location: { pathname: '/' } }} />
-    );
+    component = setUp(historyPropsHome);
   });
-  it('render AuthForm', () => {
+  it('render', () => {
     expect(component.find('.auth')).toHaveLength(1);
   });
-  it('render AuthForm without props', () => {
+  it('render without props', () => {
     expect(component.find('.auth__form_header').text()).toBe('');
   });
-
-  describe('AuthForm with props', () => {
-    beforeEach(() => {
-      component.setProps({ ...props });
-    });
-    it('render title', () => {
-      expect(component.find('.auth__form_header').text()).toBe(props.title);
-    });
-    it('render button submit title', () => {
-      expect(component.find('.login-form-button').text()).toBe(props.btnTitle);
-    });
-    it('render button help', () => {
-      expect(component.find('.button_register').text()).toBe('Регистрация');
-    });
+  it('click on button and redirect to /auth', () => {
+    component.find('.button_register').simulate('click');
+    expect(historyPropsHome.history.push).toBeCalledWith('/auth');
   });
-
-  describe('AuthForm click', () => {
-    beforeEach(() => {
-      component.setProps({ history: new BrowserRouter().history });
-    });
-    it('click on close-icon', () => {
-      const func = jest.fn();
-      component.find('.close-icon').last().simulate('click');
-      func();
-      expect(func.mock.calls.length).toBe(1);
-    });
-    it('click on button registration', () => {
-      const func = jest.fn();
-      component.find('.button_register').simulate('click');
-      func();
-      expect(func.mock.calls.length).toBe(1);
-    });
+  it('click on icon-close and redirect to /', () => {
+    component.find('.close-icon').simulate('click');
+    expect(historyPropsHome.history.push).toBeCalledWith('/');
   });
+  it('click on button and redirect to /registration', () => {
+    component = setUp(historyPropsRegistration);
+    component.find('.button_register').simulate('click');
+    expect(historyPropsRegistration.history.push).toBeCalledWith('/registration');
+  })
 });
