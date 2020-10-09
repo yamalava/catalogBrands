@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import styles from './searchStamps.module.scss';
 import 'antd/dist/antd.css';
-import { Input } from 'antd';
-import { Button } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { Input, Button } from 'antd';
+import { SearchOutlined, PlusOutlined, ClearOutlined } from '@ant-design/icons';
 import { Switch } from 'antd';
 
-function SearchStamps({ stampCatalog, searchStamps }) {
+function SearchStamps({ stampCatalog, searchStamps, openDialogForm }) {
   const [searchFilter, setSearchFilter] = useState({
     name: undefined,
     includeCollection: false,
@@ -18,11 +17,20 @@ function SearchStamps({ stampCatalog, searchStamps }) {
     });
   };
 
-  const changeBooleanCollection = (e) => {
+  const changeBooleanCollection = (checked) => {
     setSearchFilter({
       ...searchFilter,
-      includeCollection: e,
+      includeCollection: checked,
     });
+  };
+
+  const clearSearch = () => {
+    setSearchFilter({
+      ...searchFilter,
+      name: undefined,
+      includeCollection: false,
+    });
+    searchStamps(stampCatalog);
   };
 
   const updateStamps = () => {
@@ -43,19 +51,31 @@ function SearchStamps({ stampCatalog, searchStamps }) {
   return (
     <div className={styles.filterStamps}>
       <div className={styles.filterStamps__item}>
-        <Input placeholder='Наименование' allowClear onChange={changeName} />
+        <Input
+          placeholder='Наименование'
+          value={searchFilter.name}
+          allowClear
+          onChange={changeName}
+        />
       </div>
-      <div className={styles.filterStamps__item}>
+      <div>
         <span className={styles.filterStamps__item_placeholder}>
           Находится в коллекции:
         </span>
         <Switch
-          defaultChecked={searchFilter.includeCollection}
+          defaultChecked={false}
           onChange={changeBooleanCollection}
+          checked={searchFilter.includeCollection}
         />
       </div>
       <Button icon={<SearchOutlined />} onClick={updateStamps}>
         Поиск
+      </Button>
+      <Button icon={<ClearOutlined />} onClick={clearSearch}>
+        Очистить поиск
+      </Button>
+      <Button icon={<PlusOutlined />} onClick={() => openDialogForm()}>
+        Добавить почтовую марку
       </Button>
     </div>
   );

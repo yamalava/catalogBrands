@@ -5,6 +5,7 @@ const createStamp = gql`
   mutation(
     $dateHandling: ID
     $numberCatalog: Int
+    $stampImage: String
     $numberCatalogMichel: Int
     $name: String
     $series: Int
@@ -18,6 +19,7 @@ const createStamp = gql`
     createStamp(
       dateHandling: $dateHandling
       numberCatalog: $numberCatalog
+      stampImage: $stampImage
       numberCatalogMichel: $numberCatalogMichel
       name: $name
       series: $series
@@ -45,11 +47,11 @@ const createStamp = gql`
   }
 `;
 
-function CreateStampQuery() {
-  let [createStampQuery] = useMutation(createStamp, {
+function CreateStampMutation() {
+  let [createStampMutation] = useMutation(createStamp, {
     refetchQueries: () => [{ query: getAllStamps }],
   });
-  return createStampQuery;
+  return createStampMutation;
 }
 
-export default CreateStampQuery;
+export default CreateStampMutation;

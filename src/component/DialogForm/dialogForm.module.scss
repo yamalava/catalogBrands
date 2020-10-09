@@ -7,6 +7,11 @@
     justify-content: space-between;
     &__item_date {
         width: 100%;
+        & > img {
+            width: 300px;
+            display: block;
+            margin: 20px auto;
+        }
     }
     &__item {
         width: 45%;

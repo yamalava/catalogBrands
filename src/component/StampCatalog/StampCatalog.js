@@ -5,7 +5,7 @@ import StampDatePanel from '../StampDatePanel/StampDatePanel';
 import StampTable from '../StampTable/StampTable';
 import DialogForm from '../DialogForm/DialogForm';
 import initialAlert from '../../initialValue/alert';
-import checkAuth from '../../controller/checkAuth';
+import checkAuth from '../../controllers/checkAuth';
 import AlertAction from '../AlertAction/AlertAction';
 import initialFormData from '../../initialValue/formData';
 import SearchStamps from '../SearchStamps/SearchStamps';
@@ -28,7 +28,7 @@ function StampCatalog({ refetch, stampCatalog }) {
   };
 
   const handleClose = () => {
-    setDialogForm({ ...dialogForm, open: false, edit: false });
+    setDialogForm({ ...dialogForm, open: false });
   };
 
   const openDialogForm = () => {
@@ -45,9 +45,8 @@ function StampCatalog({ refetch, stampCatalog }) {
           initialAlert,
         });
       }, CLOSE_DIALOG_AFTER_DELAY);
-    } else {
-      setDialogForm({ ...dialogForm, open: true, formData: initialFormData });
     }
+    setDialogForm({ ...dialogForm, open: true, formData: initialFormData });
   };
 
   const changeAlertVisible = () => {
@@ -80,7 +79,11 @@ function StampCatalog({ refetch, stampCatalog }) {
   return (
     <>
       <h1 className={styles.title}>Хронологический каталог почтовых марок</h1>
-      <SearchStamps stampCatalog={stampCatalog} searchStamps={searchStamps} />
+      <SearchStamps
+        stampCatalog={stampCatalog}
+        searchStamps={searchStamps}
+        openDialogForm={openDialogForm}
+      />
       <section className={styles.brands}>
         {allStamps.length !== 0 && (
           <div className={styles.brands__date}>
@@ -101,8 +104,8 @@ function StampCatalog({ refetch, stampCatalog }) {
           <DialogForm
             open={dialogForm.open}
             formData={dialogForm.formData}
-            title='Добавить марку в каталог'
             handleClose={handleClose}
+            buttonText='Добавить'
           />
           <AlertAction
             changeAlertVisible={changeAlertVisible}

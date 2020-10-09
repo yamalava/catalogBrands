@@ -1,5 +1,5 @@
 import TableCell from '@material-ui/core/TableCell';
-import getCurrentDate from '../../controller/getCurrentDate';
+import getCurrentDate from '../../controllers/getCurrentDate';
 import React from 'react';
 
 function FilterTableStamps(currentStamp) {
@@ -11,6 +11,7 @@ function FilterTableStamps(currentStamp) {
       key !== 'note' &&
       key !== 'includeCollection' &&
       key !== 'country' &&
+      key !== 'stampImage' &&
       key !== 'dateHandling'
     ) {
       filterStamps.push(value);

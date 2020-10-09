@@ -6,6 +6,7 @@ export const getAllStamps = gql`
     allStamps(year: $year) {
       id
       dateHandling
+      stampImage
       year
       numberCatalog
       numberCatalogMichel

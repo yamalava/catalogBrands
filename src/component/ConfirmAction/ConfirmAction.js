@@ -6,26 +6,32 @@ import confirmActionValue from '../../initialValue/confirmActionValue';
 
 const { confirm } = Modal;
 
-function ConfirmAction({ hiddenQuestionAction, updateFinishAction }) {
+function ConfirmAction({ actionType, handleActionVisible, action }) {
   useEffect(() => {
     showPromiseConfirm();
-  });
+  }, []);
   const showPromiseConfirm = () => {
-    hiddenQuestionAction(true, false);
     confirm({
-      title: confirmActionValue.createStamp.title,
+      title:
+        actionType === 'delete'
+          ? confirmActionValue.deleteStamp.title
+          : actionType === 'create'
+          ? confirmActionValue.createStamp.title
+          : confirmActionValue.updateStamp.title,
       icon: <ExclamationCircleOutlined />,
       okText: 'Да',
       cancelText: 'Отмена',
       onOk() {
         return new Promise((resolve, reject) => {
-          updateFinishAction('create');
           setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-          hiddenQuestionAction(false, false);
-        }).catch(() => console.log('Oops errors!'));
+          handleActionVisible(false);
+          action();
+        }).catch(() => {
+          console.log('Oops errors!');
+        });
       },
       onCancel() {
-        hiddenQuestionAction(false, true);
+        handleActionVisible(false);
       },
     });
   };

@@ -10,9 +10,14 @@
   border-radius: 10px;
   box-sizing: border-box;
   padding: 40px;
+  &__image {
+    & > img {
+      width: 400px;
+    }
+  }
   .currentStamp__information {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     &__items {
       list-style: none;
@@ -27,16 +32,26 @@
     }
   }
   .buttons {
-    &__goBack {
-      cursor: pointer;
-      background: transparent;
-      padding: 10px;
-      border: 1px solid yellowgreen;
-      border-radius: 5px;
-      outline: none;
+    button {
+      margin-right: 20px;
       &:hover {
         transition: 0.3s ease;
         transform: scale(1.1);
+      }
+    }
+    &__home {
+      border-bottom: 1px solid yellowgreen;
+      &:hover {
+        border-bottom-color: #40a9ff !important;
+      }
+    }
+    &__update {
+      border-bottom: 1px solid #40a9ff;
+    }
+    &__delete {
+      border-bottom: 1px solid red;
+      &:hover {
+        border-bottom-color: #40a9ff !important;
       }
     }
   }

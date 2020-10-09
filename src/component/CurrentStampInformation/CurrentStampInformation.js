@@ -1,13 +1,22 @@
 import React from 'react';
 import styles from './currentStampInformation.module.scss';
-import getCurrentDate from '../../controller/getCurrentDate';
+import getCurrentDate from '../../controllers/getCurrentDate';
 import { withRouter } from 'react-router-dom';
+import { Image } from 'cloudinary-react';
+import { DeleteOutlined, HomeOutlined, EditOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 
-function CurrentStampInformation({ currentStamp, history }) {
+function CurrentStampInformation({
+  currentStamp,
+  history,
+  handleActionVisible,
+  handleOpenEdit,
+}) {
   return (
     <>
       <h1 className={styles.title}>{currentStamp.name}</h1>
       <section className={styles.stampInformation}>
+        <div className={styles.stampInformation__button}></div>
         <div className={styles.currentStamp__information}>
           <ul className={styles.currentStamp__information__items}>
             <li>
@@ -24,51 +33,70 @@ function CurrentStampInformation({ currentStamp, history }) {
             </li>
             <li>
               Серия:
-              <span>
-                {currentStamp.series ? currentStamp.series : '-'}
-              </span>
+              <span>{currentStamp.series ? currentStamp.series : '-'}</span>
             </li>
             <li>
               Тираж:
-              <span>
-                {currentStamp.edition ? currentStamp.edition : '-'}
-              </span>
+              <span>{currentStamp.edition ? currentStamp.edition : '-'}</span>
             </li>
             <li>
               Размер:
-              <span>
-                {currentStamp.size ? currentStamp.size : '-'}
-              </span>
+              <span>{currentStamp.size ? currentStamp.size : '-'}</span>
             </li>
             <li>
               Номинал:
               <span>
-                {currentStamp.denomination
-                  ? currentStamp.denomination
-                  : '-'}
+                {currentStamp.denomination ? currentStamp.denomination : '-'}
               </span>
             </li>
             <li>
               Страна:
-              <span>
-                {currentStamp.country ? currentStamp.country : '-'}
-              </span>
+              <span>{currentStamp.country ? currentStamp.country : '-'}</span>
             </li>
             <li>
               Заметки:
-              <span>
-                {currentStamp.note ? currentStamp.note : '-'}
-              </span>
+              <span>{currentStamp.note ? currentStamp.note : '-'}</span>
             </li>
             <li>
               Находится в коллекции:
               <span>{currentStamp.includeCollection ? 'Да' : 'Нет'}</span>
             </li>
           </ul>
-          <div className={styles.stampInformation__image}>Здесь будет картинка)))</div>
+          {currentStamp.stampImage && (
+            <div className={styles.stampInformation__image}>
+              <Image
+                cloudName='itransitiontest'
+                publicId={currentStamp.stampImage}
+              />
+            </div>
+          )}
         </div>
         <div className={styles.buttons}>
-            <button className={styles.buttons__goBack} onClick={() => history.push('/')}>Вернуться на главную</button>
+          <Button
+            className={styles.buttons__home}
+            onClick={() => history.push('/')}
+            icon={<HomeOutlined />}
+          >
+            Вернуться на главную
+          </Button>
+          {currentStamp.access && (
+            <>
+              <Button
+                className={styles.buttons__update}
+                icon={<EditOutlined />}
+                onClick={() => handleOpenEdit(true)}
+              >
+                Редактировать
+              </Button>
+              <Button
+                className={styles.buttons__delete}
+                icon={<DeleteOutlined />}
+                onClick={() => handleActionVisible(true)}
+              >
+                Удалить
+              </Button>
+            </>
+          )}
         </div>
       </section>
     </>

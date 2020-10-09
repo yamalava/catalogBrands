@@ -1,28 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import styles from './stampDatePanel.module.scss';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import AlertAction from '../AlertAction/AlertAction';
-import initialAlert from '../../initialValue/alert';
 import GetAllStampsQuery from '../../apollo/queries/getAllStamps';
 
-function StampDatePanel({ updateAllStamps, openDialogForm }) {
-  const [brandsDate, setBrandsDate] = useState([]);
-  const [alert, setAlert] = useState(initialAlert);
+function StampDatePanel({ updateAllStamps }) {
+  const [stampsDate, setStampsDate] = useState([]);
   const [activeYear, setActiveYear] = useState();
   const data = GetAllStampsQuery();
 
   useEffect(() => {
     if (data.stampCatalog) {
-      let brands = data.stampCatalog.filter(
+      let stamps = data.stampCatalog.filter(
         (thing, index, self) =>
           index === self.findIndex((t) => t.year === thing.year)
       );
-      setBrandsDate(brands.slice().sort((a, b) => a.year - b.year));
+      setStampsDate(stamps.slice().sort((a, b) => a.year - b.year));
     }
   }, [data.stampCatalog]);
 
-  const getBrandsYear = (stampYear) => {
+  const getStampsYear = (stampYear) => {
     if (stampYear) {
       updateAllStamps(stampYear);
     } else {
@@ -31,47 +26,25 @@ function StampDatePanel({ updateAllStamps, openDialogForm }) {
     setActiveYear(stampYear);
   };
 
-  const handleClickOpen = () => {
-    openDialogForm();
-  };
-
-  const changeAlertVisible = () => {
-    setAlert({
-      ...alert,
-      visible: false,
-    });
-  };
-
   return (
     <div className={styles.date}>
       <ul className={styles.date__lists}>
         <li
-          onClick={() => getBrandsYear()}
+          onClick={() => getStampsYear()}
           className={!activeYear ? styles.active : null}
         >
           Все
         </li>
-        {brandsDate.map((brand) => (
+        {stampsDate.map((stamp) => (
           <li
-            key={brand.id}
-            className={activeYear === brand.year ? styles.active : null}
-            onClick={() => getBrandsYear(brand.year)}
+            key={stamp.id}
+            className={activeYear === stamp.year ? styles.active : null}
+            onClick={() => getStampsYear(stamp.year)}
           >
-            {brand.year}
+            {stamp.year}
           </li>
         ))}
       </ul>
-      <Fab aria-label='add' onClick={handleClickOpen}>
-        <AddIcon />
-      </Fab>
-      {alert.visible && (
-        <AlertAction
-          changeAlertVisible={changeAlertVisible}
-          visible={alert.visible}
-          severity={alert.severity}
-          message={alert.message}
-        />
-      )}
     </div>
   );
 }

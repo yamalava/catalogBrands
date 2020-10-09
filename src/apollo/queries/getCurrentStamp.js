@@ -1,11 +1,11 @@
 import { gql, useQuery } from '@apollo/client';
 
-
-const GetCurrentStamp = gql`
+export const getCurrentStamp = gql`
   query($id: ID) {
     getCurrentStamp(id: $id) {
       id
       dateHandling
+      stampImage
       year
       numberCatalog
       numberCatalogMichel
@@ -17,20 +17,19 @@ const GetCurrentStamp = gql`
       includeCollection
       country
       note
+      access
     }
   }
 `;
 
 function GetCurrentStampQuery(props) {
-  let { data, loading } = useQuery(GetCurrentStamp, {
+  let { data, loading, refetch } = useQuery(getCurrentStamp, {
     variables: {
       id: props,
     },
   });
 
-  return loading
-    ? { loading }
-    : { ...data, loading };
+  return loading ? { loading, refetch } : { ...data, loading, refetch };
 }
 
 export default GetCurrentStampQuery;

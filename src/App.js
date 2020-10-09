@@ -4,14 +4,12 @@ import './App.css';
 import client from './apollo/apolloConnect';
 import Routes from './routes/Routes';
 
-class App extends React.Component {
-  render() {
-    return (
-      <ApolloProvider client={client}>
-        <Routes />
-      </ApolloProvider>
-    );
-  }
+function App() {
+  return (
+    <ApolloProvider client={client}>
+      <Routes />
+    </ApolloProvider>
+  );
 }
 
 export default App;

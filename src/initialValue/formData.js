@@ -1,17 +1,15 @@
 const initialFormData = {
-    dateHandling: Date.now(),
-    numberCatalog: undefined,
-    year: new Date().getFullYear(),
-    numberCatalogMichel: '',
-    name: undefined,
-    series: undefined,
-    edition: undefined,
-    size: undefined,
-    denomination: undefined,
-    note: undefined,
-    country: undefined,
-    includeCollection: false,
-    stampImage: undefined
-}
+  dateHandling: Date.now(),
+  numberCatalog: undefined,
+  numberCatalogMichel: '',
+  name: undefined,
+  series: undefined,
+  edition: undefined,
+  size: undefined,
+  denomination: undefined,
+  note: undefined,
+  country: undefined,
+  includeCollection: false,
+};
 
-export default initialFormData
+export default initialFormData;

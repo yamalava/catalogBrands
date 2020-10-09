@@ -1,10 +1,11 @@
-import { gql } from 'apollo-boost';
+import { gql, useMutation } from '@apollo/client';
 
-export const updateStamp = gql`
+const updateStamp = gql`
   mutation(
     $id: ID
     $dateHandling: ID
     $numberCatalog: Int
+    $stampImage: String
     $numberCatalogMichel: Int
     $name: String
     $series: Int
@@ -19,6 +20,7 @@ export const updateStamp = gql`
       id: $id
       dateHandling: $dateHandling
       numberCatalog: $numberCatalog
+      stampImage: $stampImage
       numberCatalogMichel: $numberCatalogMichel
       name: $name
       series: $series
@@ -45,3 +47,10 @@ export const updateStamp = gql`
     }
   }
 `;
+
+function UpdateCurrentStampMutation() {
+  let [updateStampQuery] = useMutation(updateStamp);
+  return updateStampQuery;
+}
+
+export default UpdateCurrentStampMutation;
