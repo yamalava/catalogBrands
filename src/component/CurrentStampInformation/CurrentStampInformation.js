@@ -4,7 +4,8 @@ import getCurrentDate from '../../controllers/getCurrentDate';
 import { withRouter } from 'react-router-dom';
 import { Image } from 'cloudinary-react';
 import { DeleteOutlined, HomeOutlined, EditOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
+import ActionButton from '../ActionButton/ActionButton';
+import noImage from '../../images/no.png';
 
 function CurrentStampInformation({
   currentStamp,
@@ -16,7 +17,6 @@ function CurrentStampInformation({
     <>
       <h1 className={styles.title}>{currentStamp.name}</h1>
       <section className={styles.stampInformation}>
-        <div className={styles.stampInformation__button}></div>
         <div className={styles.currentStamp__information}>
           <ul className={styles.currentStamp__information__items}>
             <li>
@@ -62,39 +62,41 @@ function CurrentStampInformation({
               <span>{currentStamp.includeCollection ? 'Да' : 'Нет'}</span>
             </li>
           </ul>
-          {currentStamp.stampImage && (
+          {currentStamp.stampImage ? (
             <div className={styles.stampInformation__image}>
               <Image
                 cloudName='itransitiontest'
                 publicId={currentStamp.stampImage}
               />
             </div>
+          ) : (
+            <img
+              src={noImage}
+              alt=''
+            />
           )}
         </div>
         <div className={styles.buttons}>
-          <Button
+          <ActionButton
             className={styles.buttons__home}
-            onClick={() => history.push('/')}
             icon={<HomeOutlined />}
-          >
-            Вернуться на главную
-          </Button>
+            action={() => history.push('/')}
+            title='Вернуться на главную'
+          />
           {currentStamp.access && (
             <>
-              <Button
+              <ActionButton
                 className={styles.buttons__update}
                 icon={<EditOutlined />}
-                onClick={() => handleOpenEdit(true)}
-              >
-                Редактировать
-              </Button>
-              <Button
+                action={() => handleOpenEdit(true)}
+                title='Редактировать'
+              />
+              <ActionButton
                 className={styles.buttons__delete}
                 icon={<DeleteOutlined />}
-                onClick={() => handleActionVisible(true)}
-              >
-                Удалить
-              </Button>
+                action={() => handleActionVisible(true)}
+                title='Удалить'
+              />
             </>
           )}
         </div>

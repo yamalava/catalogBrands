@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import styles from './searchStamps.module.scss';
 import 'antd/dist/antd.css';
-import { Input, Button } from 'antd';
+import { Input } from 'antd';
 import { SearchOutlined, PlusOutlined, ClearOutlined } from '@ant-design/icons';
 import { Switch } from 'antd';
+import ActionButton from '../ActionButton/ActionButton';
 
 function SearchStamps({ stampCatalog, searchStamps, openDialogForm }) {
   const [searchFilter, setSearchFilter] = useState({
@@ -68,15 +69,21 @@ function SearchStamps({ stampCatalog, searchStamps, openDialogForm }) {
           checked={searchFilter.includeCollection}
         />
       </div>
-      <Button icon={<SearchOutlined />} onClick={updateStamps}>
-        Поиск
-      </Button>
-      <Button icon={<ClearOutlined />} onClick={clearSearch}>
-        Очистить поиск
-      </Button>
-      <Button icon={<PlusOutlined />} onClick={() => openDialogForm()}>
-        Добавить почтовую марку
-      </Button>
+      <ActionButton
+        icon={<SearchOutlined />}
+        action={updateStamps}
+        title='Поиск'
+      />
+      <ActionButton
+        icon={<ClearOutlined />}
+        action={clearSearch}
+        title='Очистить поиск'
+      />
+      <ActionButton
+        icon={<PlusOutlined />}
+        action={openDialogForm}
+        title='Добавить почтовую марку'
+      />
     </div>
   );
 }
