@@ -1,14 +1,14 @@
 const initialFormData = {
   dateHandling: Date.now(),
-  numberCatalog: undefined,
+  numberCatalog: null,
   numberCatalogMichel: '',
-  name: undefined,
-  series: undefined,
-  edition: undefined,
-  size: undefined,
-  denomination: undefined,
-  note: undefined,
-  country: undefined,
+  name: null,
+  series: null,
+  edition: null,
+  size: null,
+  denomination: null,
+  note: null,
+  country: null,
   includeCollection: false,
 };
 

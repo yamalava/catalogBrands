@@ -10,9 +10,10 @@ import styles from './stampTable.module.scss';
 import { withRouter } from 'react-router-dom';
 import FilterTableStamps from './FilterTableStamps';
 import tableNames from '../../initialValue/tableNames';
+import { goToCurrentStamp } from '../../controllers/redirects';
 
 function StampTable({ stampCatalog, history }) {
-  const viewCurrentStamp = (id) => history.push(`/stamp/${id}`);
+  const viewCurrentStamp = (id) => goToCurrentStamp(history, id);
   return (
     <TableContainer component={Paper}>
       <Table className={styles.table}>

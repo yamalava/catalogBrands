@@ -9,6 +9,7 @@ const { confirm } = Modal;
 function ConfirmAction({ actionType, handleActionVisible, action }) {
   useEffect(() => {
     showPromiseConfirm();
+    // eslint-disable-next-line
   }, []);
   const showPromiseConfirm = () => {
     confirm({

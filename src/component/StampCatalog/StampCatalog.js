@@ -5,20 +5,28 @@ import StampDatePanel from '../StampDatePanel/StampDatePanel';
 import StampTable from '../StampTable/StampTable';
 import DialogForm from '../DialogForm/DialogForm';
 import initialAlert from '../../initialValue/alert';
-import checkAuth from '../../controllers/checkAuth';
 import AlertAction from '../AlertAction/AlertAction';
 import initialFormData from '../../initialValue/formData';
 import SearchStamps from '../SearchStamps/SearchStamps';
+import CheckAuthTokenQuery from '../../apollo/queries/checkAuthToken';
+import { goToAuth } from '../../controllers/redirects';
 
-const CLOSE_DIALOG_AFTER_DELAY = 5000;
+const CLOSE_DIALOG_AFTER_DELAY = 2000;
 
-function StampCatalog({ refetch, stampCatalog }) {
+const StampCatalog = ({ refetch, stampCatalog, history }) => {
+  const checkAuth = CheckAuthTokenQuery();
   const [dialogForm, setDialogForm] = useState({
     open: false,
     formData: initialFormData,
   });
   const [alert, setAlert] = useState(initialAlert);
   const [allStamps, setAllStamps] = useState(stampCatalog);
+
+  useEffect(() => {
+    checkAuth.refetch();
+    // eslint-disable-next-line
+  }, []);
+
   useEffect(() => {
     setAllStamps(stampCatalog);
   }, [stampCatalog]);
@@ -32,7 +40,7 @@ function StampCatalog({ refetch, stampCatalog }) {
   };
 
   const openDialogForm = () => {
-    if (!checkAuth()) {
+    if (!checkAuth.status) {
       setAlert({
         ...alert,
         severity: 'error',
@@ -45,8 +53,9 @@ function StampCatalog({ refetch, stampCatalog }) {
           initialAlert,
         });
       }, CLOSE_DIALOG_AFTER_DELAY);
+    } else {
+      setDialogForm({ ...dialogForm, open: true, formData: initialFormData });
     }
-    setDialogForm({ ...dialogForm, open: true, formData: initialFormData });
   };
 
   const changeAlertVisible = () => {
@@ -79,24 +88,29 @@ function StampCatalog({ refetch, stampCatalog }) {
   return (
     <>
       <h1 className={styles.title}>Хронологический каталог почтовых марок</h1>
-      <SearchStamps
-        stampCatalog={stampCatalog}
-        searchStamps={searchStamps}
-        openDialogForm={openDialogForm}
-      />
+      {checkAuth.status ? (
+        <SearchStamps
+          stampCatalog={stampCatalog}
+          searchStamps={searchStamps}
+          openDialogForm={openDialogForm}
+        />
+      ) : null}
       <section className={styles.brands}>
-        {allStamps.length !== 0 && (
+        {allStamps.length > 0 && checkAuth.status ? (
           <div className={styles.brands__date}>
             <StampDatePanel
               openDialogForm={openDialogForm}
               updateAllStamps={updateAllStamps}
             />
           </div>
-        )}
+        ) : null}
         <div className={styles.brands__catalog}>
-          {allStamps.length === 0 ? (
-            <p className={styles.brands__catalog_info} onClick={openDialogForm}>
-              Добавьте марку для отображения ее в списке
+          {!allStamps.length || !checkAuth.status ? (
+            <p
+              className={styles.brands__catalog_info}
+              onClick={() => goToAuth(history)}
+            >
+              Войдите в аккаунт для просмотра текущих марок
             </p>
           ) : (
             <StampTable stampCatalog={allStamps} />
@@ -117,6 +131,6 @@ function StampCatalog({ refetch, stampCatalog }) {
       </section>
     </>
   );
-}
+};
 
 export default withRouter(StampCatalog);

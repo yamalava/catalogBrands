@@ -1,32 +1,34 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import styles from './header.module.scss';
+import { goToAuth, goToRegistration } from '../../controllers/redirects';
+import CheckAuthTokenQuery from '../../apollo/queries/checkAuthToken';
+import 'antd/dist/antd.css';
+import { Button } from 'antd';
 
-function Header({ history }) {
+const Header = ({ history }) => {
+  const checkAuth = CheckAuthTokenQuery();
   const removeToken = () => {
     sessionStorage.removeItem('accessToken');
-    history.push('/auth');
+    goToAuth(history);
   };
 
   return (
     <header className={styles.header}>
       <div className={styles.header__menu}>
-        {sessionStorage.getItem('accessToken') ? (
+        {checkAuth.status ? (
           <Button variant='contained' onClick={removeToken}>
             Выйти
           </Button>
         ) : (
           <>
-            <Button
-              variant='contained'
-              onClick={() => history.push('/auth')}
-            >
+            <Button variant='contained' onClick={() => goToAuth(history)}>
               Войти
             </Button>
             <Button
               variant='contained'
-              onClick={() => history.push('/registration')}
+              onClick={() => goToRegistration(history)}
             >
               Регистрация
             </Button>
@@ -35,6 +37,6 @@ function Header({ history }) {
       </div>
     </header>
   );
-}
+};
 
 export default withRouter(Header);

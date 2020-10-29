@@ -4,12 +4,12 @@ import './App.css';
 import client from './apollo/apolloConnect';
 import Routes from './routes/Routes';
 
-function App() {
+const App = () => {
   return (
     <ApolloProvider client={client}>
       <Routes />
     </ApolloProvider>
   );
-}
+};
 
 export default App;

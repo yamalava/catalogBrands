@@ -6,6 +6,7 @@ import { Image } from 'cloudinary-react';
 import { DeleteOutlined, HomeOutlined, EditOutlined } from '@ant-design/icons';
 import ActionButton from '../ActionButton/ActionButton';
 import noImage from '../../images/no.png';
+import { goToHome } from '../../controllers/redirects';
 
 function CurrentStampInformation({
   currentStamp,
@@ -70,17 +71,14 @@ function CurrentStampInformation({
               />
             </div>
           ) : (
-            <img
-              src={noImage}
-              alt=''
-            />
+            <img src={noImage} alt='' />
           )}
         </div>
         <div className={styles.buttons}>
           <ActionButton
             className={styles.buttons__home}
             icon={<HomeOutlined />}
-            action={() => history.push('/')}
+            action={() => goToHome(history)}
             title='Вернуться на главную'
           />
           {currentStamp.access && (

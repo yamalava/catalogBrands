@@ -8,6 +8,7 @@ import ConfirmAction from '../component/ConfirmAction/ConfirmAction';
 import DeleteStampMutation from '../apollo/mutation/deleteStamp';
 import DialogForm from '../component/DialogForm/DialogForm';
 import initialFormData from '../initialValue/formData';
+import { goToHome } from '../controllers/redirects';
 
 const CLOSE_TIMER = 1100;
 
@@ -24,6 +25,7 @@ function CurrentStamp(props) {
     currentStamp.refetch({
       id: props.match.params.stampID,
     });
+    // eslint-disable-next-line
   }, []);
 
   const handleActionVisible = (visible) => {
@@ -56,7 +58,7 @@ function CurrentStamp(props) {
     })
       .then(() => {
         setTimeout(() => {
-          props.history.push('/');
+          goToHome(props.history);
         }, CLOSE_TIMER);
       })
       .catch((err) => {

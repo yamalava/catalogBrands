@@ -8,8 +8,7 @@ import {
 } from '@material-ui/pickers';
 import styles from './dialogForm.module.scss';
 import 'antd/dist/antd.css';
-import { Form, Button, Input, InputNumber, Switch } from 'antd';
-import formError from '../../initialValue/formError';
+import { Form, Button, Switch } from 'antd';
 import ConfirmAction from '../ConfirmAction/ConfirmAction';
 import initialFormData from '../../initialValue/formData';
 import TextField from '@material-ui/core/TextField';
@@ -17,15 +16,15 @@ import CreateStampMutation from '../../apollo/mutation/createStamp';
 import axios from 'axios';
 import { Image } from 'cloudinary-react';
 import UpdateCurrentStampMutation from '../../apollo/mutation/updateStamp';
-const { TextArea } = Input;
+import formItems from '../../initialValue/formItems';
 
-function DialogForm({
+const DialogForm = ({
   open,
   handleClose,
   formData,
   buttonText,
   updateCurrentStamp,
-}) {
+}) => {
   const [visibleDialogForm, setVisibleDialogForm] = useState(true);
   const [actionVisible, setActionVisible] = useState(false);
   const [fileImage, setFileImage] = useState(null);
@@ -176,82 +175,20 @@ function DialogForm({
                 </MuiPickersUtilsProvider>
               </Form.Item>
             </div>
-            <div className={styles.form__item}>
-              <Form.Item
-                name='numberCatalog'
-                rules={[
-                  {
-                    required: true,
-                    message: formError.fieldEmpty,
-                  },
-                ]}
+            {Object.keys(formItems).map((item, index) => (
+              <div
+                key={index}
+                className={
+                  formItems[item].className
+                    ? styles[formItems[item].className]
+                    : styles.form__item
+                }
               >
-                <InputNumber type='number' placeholder='Номер по каталогу' />
-              </Form.Item>
-            </div>
-            <div className={styles.form__item}>
-              <Form.Item
-                name='numberCatalogMichel'
-                rules={[
-                  {
-                    required: true,
-                    message: formError.fieldEmpty,
-                  },
-                ]}
-              >
-                <InputNumber
-                  type='number'
-                  placeholder='Номер по каталогу Michel'
-                />
-              </Form.Item>
-            </div>
-            <div className={styles.form__item}>
-              <Form.Item
-                name='name'
-                rules={[
-                  {
-                    required: true,
-                    message: formError.fieldEmpty,
-                  },
-                ]}
-              >
-                <Input placeholder='Наименование' />
-              </Form.Item>
-            </div>
-            <div className={styles.form__item}>
-              <Form.Item name='series'>
-                <InputNumber type='number' placeholder='Серия' />
-              </Form.Item>
-            </div>
-            <div className={styles.form__item}>
-              <Form.Item name='edition'>
-                <InputNumber type='number' placeholder='Тираж' />
-              </Form.Item>
-            </div>
-            <div className={styles.form__item}>
-              <Form.Item name='size'>
-                <InputNumber type='number' placeholder='Размер' />
-              </Form.Item>
-            </div>
-            <div className={styles.form__item}>
-              <Form.Item name='denomination'>
-                <InputNumber type='number' placeholder='Номинал' />
-              </Form.Item>
-            </div>
-            <div className={styles.form__item}>
-              <Form.Item name='country'>
-                <Input placeholder='Страна' />
-              </Form.Item>
-            </div>
-            <div className={styles.form__item_date}>
-              <Form.Item className={styles.from__item} name='note'>
-                <TextArea
-                  rows={4}
-                  placeholder='Заметки'
-                  className={styles.form__input}
-                />
-              </Form.Item>
-            </div>
+                <Form.Item name={item} rules={[formItems[item].rules]}>
+                  {formItems[item].input}
+                </Form.Item>
+              </div>
+            ))}
             <div className={styles.form__item_date}>
               <TextField
                 onChange={handleFileInputChange}
@@ -306,6 +243,6 @@ function DialogForm({
       )}
     </>
   );
-}
+};
 
 export default DialogForm;

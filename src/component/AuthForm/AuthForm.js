@@ -8,14 +8,25 @@ import {
   CloseCircleOutlined,
 } from '@ant-design/icons';
 import { withRouter } from 'react-router-dom';
+import {
+  goToHome,
+  goToAuth,
+  goToRegistration,
+} from '../../controllers/redirects';
 
 function AuthForm({ title, btnTitle, formAction, history }) {
   const onFinish = (values) => {
     formAction(values);
   };
 
+  const closeForm = (e) => {
+    if (e.keyCode === 27) {
+      goToHome(history);
+    }
+  };
+
   return (
-    <section className={styles.auth}>
+    <section className={styles.auth} onKeyDown={closeForm}>
       <Form
         name='normal_login'
         className={styles.auth__form}
@@ -29,7 +40,7 @@ function AuthForm({ title, btnTitle, formAction, history }) {
             <p>{title}</p>
             <CloseCircleOutlined
               className='close-icon'
-              onClick={() => history.push('/')}
+              onClick={() => goToHome(history)}
             />
           </div>
         </Form.Item>
@@ -78,8 +89,8 @@ function AuthForm({ title, btnTitle, formAction, history }) {
             className={styles.button_register}
             onClick={() =>
               history.location.pathname === '/auth'
-                ? history.push('/registration')
-                : history.push('/auth')
+                ? goToRegistration(history)
+                : goToAuth(history)
             }
           >
             {history.location.pathname === '/auth'

@@ -5,6 +5,7 @@ import Loader from '../component/Loader/Loader';
 import AlertAction from '../component/AlertAction/AlertAction';
 import initialAlert from '../initialValue/alert';
 import AuthUserQuery from '../apollo/mutation/authUser';
+import { goToHome } from '../controllers/redirects';
 
 function Auth(props) {
   const auth = AuthUserQuery();
@@ -18,7 +19,7 @@ function Auth(props) {
       })
       .then((res) => {
         sessionStorage.setItem('accessToken', res.data.authUser.token);
-        props.history.push('/');
+        goToHome(props.history)
       })
       .catch((err) => {
         setAlert({

@@ -4,7 +4,7 @@ import StampCatalog from '../component/StampCatalog/StampCatalog';
 import Loader from '../component/Loader/Loader';
 import GetAllStampsQuery from '../apollo/queries/getAllStamps';
 
-function Home() {
+const Home = () => {
   const stamps = GetAllStampsQuery();
   return stamps.loading ? (
     <Loader />
@@ -17,6 +17,6 @@ function Home() {
       />
     </>
   );
-}
+};
 
 export default Home;

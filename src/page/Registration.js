@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import initialAlert from '../initialValue/alert';
 import AlertAction from '../component/AlertAction/AlertAction';
 import RegistrationUserQuery from '../apollo/mutation/registrationUser';
+import { goToAuth } from '../controllers/redirects';
 
 function Registration({ history }) {
   let registrationUserQuery = RegistrationUserQuery();
@@ -15,7 +16,7 @@ function Registration({ history }) {
       },
     })
       .then(() => {
-        history.push('/auth');
+        goToAuth(history)
       })
       .catch((err) => {
         setAlert({
